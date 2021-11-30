@@ -1,0 +1,18 @@
+{
+  "name": "covid-21",
+  "version": "1.0.0",
+  "description": "",
+  "main": "covid.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.7",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "jest": "^26.6.3"
+  }
+}
