@@ -14,7 +14,6 @@ class domManager{
         
         this.input = document.createElement('input')
 
-
         this.app.append(this.input)
     }
 
