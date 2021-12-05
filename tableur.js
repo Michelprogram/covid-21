@@ -5,6 +5,19 @@ const getFlagEmoji = countryCode =>{
     return String.fromCodePoint(a[0],a[1])
 }
 
+const pibRequest = async (countries) =>{
+
+    const result = await Request.send("https://stats.oecd.org/SDMX-JSON/data/SNA_TABLE1/AUS+AUT+BEL+CAN+CHL+COL+CRI+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+JPN+KOR+LTU+LVA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+NMEC+ARG+BRA+BGR+CHN+HRV+CYP+IND+IDN+MLT+PER+ROU+RUS+SAU+ZAF+FRME+DEW.B1_GE.HCPC/all?startTime=2019&endTime=2019&dimensionAtObservation=allDimensions", "GET")
+    const pibForEachCountry = result.dataSets[0].observations
+    const ISOpib = result.structure.dimensions.observation[0].values
+
+    ISOpib.forEach( (el,index) =>{
+        const tempo = `${index}:0:0:0`
+        const country = countries.find( count => count.codePaysISO3 === el.id)
+        country.pib = pibForEachCountry[tempo][0]
+    })
+}
+
 
 const initTable = async () =>{
 
@@ -32,7 +45,7 @@ const createTable = (countries) =>{
 
         const tr = document.createElement("tr")
 
-        for (let index = 0; index < 4; index++) {
+        for (let index = 0; index < 5; index++) {
             const th = document.createElement("th")
 
             if(index === 0)
@@ -44,7 +57,7 @@ const createTable = (countries) =>{
             else if (index === 3)
                 th.innerHTML = element.totalDeMort
             else
-                th.innerHTML = element.pib
+                th.innerHTML = element.pib == 0 ? "Introuvable" : element.pib
 
             tr.appendChild(th)
             
@@ -55,15 +68,19 @@ const createTable = (countries) =>{
     })
 }
 
-let countries = []
 
-initTable()
-.then(d => {
-    countries = d
+const main = async () =>{
+    let countries = await initTable()
+    await pibRequest(countries)
     createTable(countries)
-})
+}
+
 
 document.querySelector("button").addEventListener('click',(e)=>{
     console.log(e)
     createTable
 })
+
+main()
+
+//TOOD Ajouter l'unité du PIB

@@ -250,3 +250,24 @@ const dataCountry = {
     "QA": "QAT",
     "MZ": "MOZ"
 }
+
+/* const generatURL = () =>{
+
+    let link = ""
+
+    let array = Object.values(dataCountry)
+
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+
+        if(index === array.length - 1)
+            link += `${element}`
+        else
+            link += `${element}+`
+
+
+        
+    }
+
+    return `https://stats.oecd.org:443/SDMX-JSON/data/SNA_TABLE1/${link}.B1_GE.HCPC/all?startTime=2019&endTime=2019&dimensionAtObservation=allDimensions`
+} */
