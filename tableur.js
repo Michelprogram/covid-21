@@ -4,8 +4,8 @@ const arrows = document.querySelectorAll('.arrow')
 
 let countries = []
 
-String.prototype.splitAtThree = function(){
-    return this.split("").reverse()
+Number.prototype.splitAtThree = function(){
+    return this.toString().split("").reverse()
     .map((letter,index)=> (index % 3 === 0) && (index != 0) ? letter+" " : letter)
     .reverse().join("")
 }
@@ -28,11 +28,13 @@ const pibRequest = async (countries) =>{
     ISOpib.forEach( (el,index) =>{
         const tempo = `${index}:0:0:0`
         const country = countries.find( count => count.codePaysISO3 === el.id)
-        country.pib = pibForEachCountry[tempo][0]
+        country.pib = Math.floor(pibForEachCountry[tempo][0])
     })
+
+    return countries
 }
 
-const initTable = async () =>{
+const initData = async () =>{
 
     const result = await Request.send("https://api.covid19api.com/summary","GET")
 
@@ -43,8 +45,8 @@ const initTable = async () =>{
             codePaysISO3 : dataCountry[country.CountryCode],
             flag : getFLagIcon(country.CountryCode),
             //flag : getFlagEmoji(country.CountryCode),
-            totalDeCas : country.TotalConfirmed.toString().splitAtThree(),
-            totalDeMort : country.TotalDeaths.toString().splitAtThree(),
+            totalDeCas : country.TotalConfirmed,
+            totalDeMort : country.TotalDeaths,
             pib : 0
         }
     })
@@ -71,11 +73,11 @@ const updateTable = (countries) =>{
             else if (index === 1)
                 el.textContent = country.nomDuPays
             else if (index === 2)
-                el.textContent = country.totalDeCas
+                el.textContent = country.totalDeCas.splitAtThree()
             else if (index === 3)
-                el.textContent= country.totalDeMort
+                el.textContent= country.totalDeMort.splitAtThree()
             else
-                el.textContent = country.pib == 0 ? "Introuvable" : country.pib
+                el.textContent = country.pib == 0 ? "Introuvable" : country.pib.splitAtThree()
         })
 
         jndex++
@@ -103,11 +105,11 @@ const createTable = (countries) =>{
             else if (index === 1)
                 th.innerHTML = element.nomDuPays
             else if (index === 2)
-                th.innerHTML = element.totalDeCas
+                th.innerHTML = element.totalDeCas.splitAtThree()
             else if (index === 3)
-                th.innerHTML = element.totalDeMort
+                th.innerHTML = element.totalDeMort.splitAtThree()
             else
-                th.innerHTML = element.pib == 0 ? "Introuvable" : element.pib
+                th.innerHTML = element.pib == 0 ? "Introuvable" : element.pib.splitAtThree()
 
             tr.appendChild(th)
             
@@ -118,78 +120,105 @@ const createTable = (countries) =>{
     })
 }
 
-const changeArrow = (element) =>{
+const changeArrow = (element,index) =>{
+
     const flag = element.src.includes("tri1")
 
-    if (flag){
+    if (index == 0){
+        const flag = element.src.includes("trialpha1")
+        console.log(flag)
+
+        if(flag){
+            element.src = element.src.replace("trialpha1","trialpha2")
+            element.title = "Croissant"
+        }
+        else{
+            element.src = element.src.replace("trialpha2","trialpha1")
+            element.title = "Décroissant"
+        }
+    }
+
+/*     if (flag){
         element.src = element.src.replace("tri1","tri2")
         element.title = "Croissant"
     }
     else{
         element.src = element.src.replace("tri2","tri1")
         element.title = "Décroissant"
-    }
+    } */
 
     return element.title
 
 }
 
-const croissant = (countries, parameter) =>{
-    return countries.sort( (a,b)=> parseInt(a[parameter].replace(/\s+/g, '')) - parseInt(b[parameter].replace(/\s+/g, '')) )
+const fetchAllData = async () =>{
+    return await pibRequest(await initData())
 }
 
-const decroissant = (countries, parameter) =>{
-    return countries.sort( (a,b)=> parseInt(a[parameter].replace(/\s+/g, '')) - parseInt(b[parameter].replace(/\s+/g, '')) )
-    .reverse()
-}
+const croissant = (countries, parameter) => countries.sort( (a,b)=> a[parameter] - b[parameter] )
+
+const decroissant = (countries, parameter) =>countries.sort( (a,b)=> a[parameter] - b[parameter] ).reverse()
 
 const main = async () =>{
-    countries = await initTable()
-    await pibRequest(countries)
-    createTable(countries)
+    createTable(await fetchAllData())
 }
 
 
 arrows.forEach( (el, index) =>{
-    el.addEventListener('click', () => {
+    el.addEventListener('click', async () => {
 
-        const trie = changeArrow(el)
+        const trie = changeArrow(el,index)
 
-        switch(index){
-            case 1:{
-                countries = trie === "Décroissant" ? decroissant(countries,"totalDeCas") : croissant(countries,"totalDeCas")
-            }
+        let newData = await fetchAllData()
+
+        if( index == 0){
+            countries = trie === "Décroissant" ? decroissant(newData,"nomDuPays") : croissant(newData,"nomDuPays")
+        }
+        else if (index == 1){
+            countries = trie === "Décroissant" ? decroissant(newData,"totalDeCas") : croissant(newData,"totalDeCas")
+        }
+        else if (index == 2){
+            countries = trie === "Décroissant" ? decroissant(newData,"totalDeMort") : croissant(newData,"totalDeMort")
+        }
+        else if(index == 3){
+            countries = trie === "Décroissant" ? decroissant(newData,"pib") : croissant(newData,"pib")
         }
 
-        console.log(countries)
-
         updateTable(countries)
+
     })
 })
 
 document.querySelector('button').addEventListener('click',(e)=>{
 
-    const input = document.querySelector("input").value
+    const input = document.querySelector("input")
     const table = document.querySelector(".body-table")
+    const span = document.querySelector('#nb-pays')
 
     const childrens = table.children
-    if (input === ""){
+    if (input.value === ""){
         for (let index = 0; index < childrens.length; index++) {
             const element = childrens[index];
             element.style.display = "table-row"
         }
     }
 
-    if ( !isNaN( parseInt(input) )){
-       for (let index = parseInt(input) + 1; index < childrens.length; index++) {
+    if ( !isNaN( parseInt(input.value) )){
+       for (let index = parseInt(input.value) + 1; index < childrens.length; index++) {
            const element = childrens[index];
            element.style.display = "none"
        }
+       span.innerHTML = input.value
+
     }
+    else{
+        span.innerHTML = "193"
+    }
+
+    input.value = ""
+
 })
 
 main()
 
-
-//TOOD Ajouter l'unité du PIB
-//Revoir le trie
+//TODO revoir icone de trie ne sont pas à jour quand on clique

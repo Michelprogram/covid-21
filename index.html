@@ -19,8 +19,11 @@
     <div class="app">
         <div class="container-table">
             <h2>Statistique du covid par pays</h2>
-            <input type="text">
-            <button>Refresh</button>
+            <div class="container-input">            
+                <input type="text">
+                <button>Refresh</button>
+                <p>Nombre(s) de pays affiché(s) : <span id="nb-pays">193</span></p>
+            </div>
             <div class="table">
                 <table>
                     <tbody class="body-table">
@@ -28,7 +31,7 @@
                             <th>Drapeau</th>
                             <th>
                                 <p>Nom du pays</p>
-                                <img src="./assets/tri1.svg" alt="" class="arrow" title="Décroissant">
+                                <img src="./assets/trialpha1.svg" alt="" class="arrow" title="Décroissant">
                             </th>
                             <th>
                                 <p>Cas déclarés</p>
@@ -39,7 +42,7 @@
                                 <img src="./assets/tri1.svg" alt="" class="arrow" title="Décroissant">
                             </th>
                             <th>
-                                <p>Pib</p>
+                                <p>Pib ($)</p>
                                 <img src="./assets/tri1.svg" alt="" class="arrow" title="Décroissant">
                             </th>
                         </tr>
@@ -51,6 +54,10 @@
 
 
     </div>
+
+    <footer>
+        <p>Web site created by Daryl Caruso & Gauron Dorian | Javascript API | ©</p>
+    </footer>
     
 </body>
 </html>
