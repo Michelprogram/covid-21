@@ -122,30 +122,30 @@ const createTable = (countries) =>{
 
 const changeArrow = (element,index) =>{
 
-    const flag = element.src.includes("tri1")
-
     if (index == 0){
-        const flag = element.src.includes("trialpha1")
-        console.log(flag)
+        const flag = element.src.includes('trialpha1')
 
-        if(flag){
-            element.src = element.src.replace("trialpha1","trialpha2")
-            element.title = "Croissant"
-        }
-        else{
-            element.src = element.src.replace("trialpha2","trialpha1")
+        if (flag){
+            element.src = element.src.replace('trialpha1','trialpha2')
             element.title = "Décroissant"
         }
-    }
-
-/*     if (flag){
-        element.src = element.src.replace("tri1","tri2")
-        element.title = "Croissant"
+        else if(!flag){
+            element.src = element.src.replace('trialpha2','trialpha1')
+            element.title = "Croissant"
+        }
     }
     else{
-        element.src = element.src.replace("tri2","tri1")
-        element.title = "Décroissant"
-    } */
+        const flag = element.src.includes('tri1')
+
+        if (flag){
+            element.src = element.src.replace("tri1","tri2")
+            element.title = "Décroissant"
+        }
+        else{
+            element.src = element.src.replace("tri2","tri1")
+            element.title = "Croissant"
+        }
+    }
 
     return element.title
 
@@ -168,6 +168,8 @@ arrows.forEach( (el, index) =>{
     el.addEventListener('click', async () => {
 
         const trie = changeArrow(el,index)
+
+        console.log(trie)
 
         let newData = await fetchAllData()
 
