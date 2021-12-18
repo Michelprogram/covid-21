@@ -1,5 +1,3 @@
-const divContainer = document.querySelector('.app')
-
 const arrows = document.querySelectorAll('.arrow')
 
 let countries = []
@@ -44,7 +42,6 @@ const initData = async () =>{
             codePaysISO2 : country.CountryCode,
             codePaysISO3 : dataCountry[country.CountryCode],
             flag : getFLagIcon(country.CountryCode),
-            //flag : getFlagEmoji(country.CountryCode),
             totalDeCas : country.TotalConfirmed,
             totalDeMort : country.TotalDeaths,
             pib : 0
@@ -222,5 +219,3 @@ document.querySelector('button').addEventListener('click',(e)=>{
 })
 
 main()
-
-//TODO revoir icone de trie ne sont pas à jour quand on clique

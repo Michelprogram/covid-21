@@ -4,9 +4,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./assets/covid.png" />
-    <script src="domManager.js"></script>
-    <script src="./data/country.js"></script>
-    <script src="request.js"></script>
+    <script src="src/Request.js"></script>
+    <script src="./src/utils.js"></script>
+    <script src="./src/dataManager.js"></script>
+    <script src="./src/domManager.js"></script>
+    <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Covid-21</title>
 </head>
@@ -20,8 +22,8 @@
         <div class="container-table">
             <h2>Statistique du covid par pays</h2>
             <div class="container-input">            
-                <input type="text">
-                <button>Refresh</button>
+                <input id="text-filter" type="text">
+                <button id="button-refresh">Refresh</button>
                 <p>Nombre(s) de pays affiché(s) : <span id="nb-pays">193</span></p>
             </div>
             <div class="table">
@@ -61,4 +63,4 @@
     
 </body>
 </html>
-<script src="tableur.js"></script>
+<!-- <script src="tableur.js"></script> -->
