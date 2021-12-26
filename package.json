@@ -4,15 +4,17 @@
   "description": "",
   "main": "covid.js",
   "scripts": {
-    "test": "jest",
-    "watch": "jest --watch"
+    "test": "npm run build && jest",
+    "watch": "jest --watch",
+    "build": "./node_modules/.bin/babel src --out-dir dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.12.7",
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
     "jest": "^26.6.3"
   }
 }
