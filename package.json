@@ -4,7 +4,9 @@
   "description": "",
   "main": "covid.js",
   "scripts": {
-    "test": "npm run build && jest",
+    "allTest": "npm run build && jest",
+    "testRequest" : "jest __tests__/request.js",
+    "testUtilitaires" : "jest __tests__/utilitaire.js",
     "build": "./node_modules/.bin/babel src --out-dir dist"
   },
   "author": "",

@@ -1,5 +1,10 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 class domManager {
   constructor(countries) {
     this.countries = countries;
@@ -111,3 +116,6 @@ class domManager {
   }
 
 }
+
+var _default = domManager;
+exports.default = _default;

@@ -2,7 +2,16 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _Request = _interopRequireDefault(require("./Request.js"));
+
+var _utils = require("./utils.js");
 
 var dataCountry = {
   "BD": "BGD",
@@ -269,7 +278,7 @@ class dataManager {
   _pibRequest(countries) {
     return (0, _asyncToGenerator2.default)(function* () {
       //URL généré auparavant par une fonction
-      var result = yield Request.send("https://stats.oecd.org/SDMX-JSON/data/SNA_TABLE1/AUS+AUT+BEL+CAN+CHL+COL+CRI+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+JPN+KOR+LTU+LVA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+NMEC+ARG+BRA+BGR+CHN+HRV+CYP+IND+IDN+MLT+PER+ROU+RUS+SAU+ZAF+FRME+DEW.B1_GE.HCPC/all?startTime=2019&endTime=2019&dimensionAtObservation=allDimensions", "GET");
+      var result = yield _Request.default.send("https://stats.oecd.org/SDMX-JSON/data/SNA_TABLE1/AUS+AUT+BEL+CAN+CHL+COL+CRI+CZE+DNK+EST+FIN+FRA+DEU+GRC+HUN+ISL+IRL+ISR+ITA+JPN+KOR+LTU+LVA+LUX+MEX+NLD+NZL+NOR+POL+PRT+SVK+SVN+ESP+SWE+CHE+TUR+GBR+USA+NMEC+ARG+BRA+BGR+CHN+HRV+CYP+IND+IDN+MLT+PER+ROU+RUS+SAU+ZAF+FRME+DEW.B1_GE.HCPC/all?startTime=2019&endTime=2019&dimensionAtObservation=allDimensions", "GET");
       var pibForEachCountry = result.dataSets[0].observations;
       var ISOpib = result.structure.dimensions.observation[0].values;
       ISOpib.forEach((el, index) => {
@@ -285,7 +294,7 @@ class dataManager {
     var _this = this;
 
     return (0, _asyncToGenerator2.default)(function* () {
-      var result = yield Request.send("https://api.covid19api.com/summary", "GET");
+      var result = yield _Request.default.send("https://api.covid19api.com/summary", "GET");
       return [...result.Countries].map(country => {
         return {
           nomDuPays: country.Country,
@@ -309,17 +318,19 @@ class dataManager {
   }
 
   order(index, trie) {
+    var _this3 = this;
+
     return (0, _asyncToGenerator2.default)(function* () {
-      var countries = yield data.getFullData();
+      var countries = yield _this3.getFullData();
 
       if (index == 0) {
-        countries = trie === "Décroissant" ? decroissant(countries, "nomDuPays") : croissant(countries, "nomDuPays");
+        countries = trie === "Décroissant" ? (0, _utils.decroissant)(countries, "nomDuPays") : (0, _utils.croissant)(countries, "nomDuPays");
       } else if (index == 1) {
-        countries = trie === "Décroissant" ? decroissant(countries, "totalDeCas") : croissant(countries, "totalDeCas");
+        countries = trie === "Décroissant" ? (0, _utils.decroissant)(countries, "totalDeCas") : (0, _utils.croissant)(countries, "totalDeCas");
       } else if (index == 2) {
-        countries = trie === "Décroissant" ? decroissant(countries, "totalDeMort") : croissant(countries, "totalDeMort");
+        countries = trie === "Décroissant" ? (0, _utils.decroissant)(countries, "totalDeMort") : (0, _utils.croissant)(countries, "totalDeMort");
       } else if (index == 3) {
-        countries = trie === "Décroissant" ? decroissant(countries, "pib") : croissant(countries, "pib");
+        countries = trie === "Décroissant" ? (0, _utils.decroissant)(countries, "pib") : (0, _utils.croissant)(countries, "pib");
       }
 
       return countries;
@@ -327,3 +338,6 @@ class dataManager {
   }
 
 }
+
+var _default = dataManager;
+exports.default = _default;
