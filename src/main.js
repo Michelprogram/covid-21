@@ -1,3 +1,6 @@
+import dataManager from "./dataManager.js"
+import domManager from "./domManager.js"
+
 const data = new dataManager()
 
 window.addEventListener('DOMContentLoaded', async (event)=>{

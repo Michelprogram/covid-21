@@ -1,6 +1,13 @@
 {
-  "presets": [["@babel/preset-env", {"modules": false}]],
-  "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime"],
+  "presets": [["@babel/preset-env",
+            {
+              "targets": {
+                "esmodules" : true,
+                "node": true
+              }
+            }
+    ]],
+  "plugins": ["@babel/plugin-transform-modules-commonjs", "@babel/plugin-transform-runtime"]
     
 }
 

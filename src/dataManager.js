@@ -1,3 +1,6 @@
+import Request from "./Request.js"
+import { croissant, decroissant } from "./utils.js"
+
 const dataCountry = {
     "BD": "BGD",
     "BE": "BEL",
@@ -301,7 +304,7 @@ class dataManager{
 
     async order(index,trie){
 
-        let countries = await data.getFullData()
+        let countries = await this.getFullData()
 
         if( index == 0){
             countries = trie === "Décroissant" ? decroissant(countries,"nomDuPays") : croissant(countries,"nomDuPays")
@@ -319,3 +322,5 @@ class dataManager{
         return countries
     }
 }
+
+export default dataManager

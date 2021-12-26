@@ -5,7 +5,6 @@
   "main": "covid.js",
   "scripts": {
     "test": "npm run build && jest",
-    "watch": "jest --watch",
     "build": "./node_modules/.bin/babel src --out-dir dist"
   },
   "author": "",

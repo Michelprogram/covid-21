@@ -143,3 +143,5 @@ class domManager{
 
 
 }
+
+export default domManager

@@ -7,3 +7,5 @@ Number.prototype.splitAtThree = function(){
     .map((letter,index)=> (index % 3 === 0) && (index != 0) ? letter+" " : letter)
     .reverse().join("")
 }
+
+export {croissant, decroissant}
