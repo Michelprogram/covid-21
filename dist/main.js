@@ -9,7 +9,6 @@ var _dataManager = _interopRequireDefault(require("./dataManager.js"));
 var _domManager = _interopRequireDefault(require("./domManager.js"));
 
 var data = new _dataManager.default();
-console.log(await data._countriesData());
 window.addEventListener('DOMContentLoaded', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)(function* (event) {
     var dom = new _domManager.default(yield data.getFullData());

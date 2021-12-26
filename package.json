@@ -5,8 +5,9 @@
   "main": "covid.js",
   "scripts": {
     "allTest": "npm run build && jest",
-    "testRequest" : "jest __tests__/request.js",
-    "testUtilitaires" : "jest __tests__/utilitaire.js",
+    "testRequest" : "npm run build && jest __tests__/request.js",
+    "testUtilitaires" : "npm run build && jest __tests__/utilitaire.js",
+    "testTableau": "npm run build && jest __tests__/tableau.js",
     "build": "./node_modules/.bin/babel src --out-dir dist"
   },
   "author": "",
@@ -17,5 +18,8 @@
     "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.12.7",
     "jest": "^26.6.3"
+  },
+  "jest":{
+    "testEnvironment": "jsdom"
   }
 }

@@ -109,7 +109,6 @@ class domManager{
         }
     }
 
-
     updateArrow(element,index){
         if (index == 0){
             const flag = element.src.includes('trialpha1')
