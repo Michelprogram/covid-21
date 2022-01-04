@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', async (event)=>{
 
     const countries = await data.getFullData()
 
-    loadChart(await data.order(3,"Croissant"))
+    loadChart(countries)
 
     const dom = new domManager(countries)
 
