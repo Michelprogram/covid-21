@@ -1,14 +1,15 @@
 import dataManager from "./dataManager.js"
 import domManager from "./domManager.js"
-import loadChart from "./graphic.js"
+import Charts from "./graphic.js"
 
 const data = new dataManager()
+const charts = new Charts()
 
 window.addEventListener('DOMContentLoaded', async (event)=>{
 
-    const countries = await data.getFullData()
+    let countries = await data.getFullData()
 
-    loadChart(countries)
+    charts.loadChart(countries)
 
     const dom = new domManager(countries)
 
@@ -20,14 +21,17 @@ window.addEventListener('DOMContentLoaded', async (event)=>{
     
             const trie = dom.updateArrow(el,index)
 
-            const countriesUpdateOrdered = await data.order(index, trie)
+            countries = await data.order(index, trie)
     
-            dom.updateTable(countriesUpdateOrdered)
+            dom.updateTable(countries)
     
         })
     })
 
 
-    dom.button.addEventListener('click', ()=> dom.filterTable())
+    dom.button.addEventListener('click', ()=> {
+        charts.updateCharts(countries,dom.getInputValue())
+        dom.filterTable()
+    })
 
 })
