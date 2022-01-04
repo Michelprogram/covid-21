@@ -1,11 +1,16 @@
 import dataManager from "./dataManager.js"
 import domManager from "./domManager.js"
+import loadChart from "./graphic.js"
 
 const data = new dataManager()
 
 window.addEventListener('DOMContentLoaded', async (event)=>{
 
-    const dom = new domManager(await data.getFullData())
+    const countries = await data.getFullData()
+
+    loadChart(await data.order(3,"Croissant"))
+
+    const dom = new domManager(countries)
 
     dom.initTable()
 
