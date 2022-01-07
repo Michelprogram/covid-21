@@ -158,7 +158,6 @@ tr:nth-child(even) {
 
 #myChart{
   width: 100%;
-  border: 1px solid red;
   position: relative;
 }
 
