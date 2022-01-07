@@ -1,3 +1,4 @@
+//Class pour faire des requêtes aux API, utilise la mécanique des promesses.
 class Request{
     static send = (URI,method,data={}) => {
         return new Promise((resolve,reject)=>{

@@ -8,19 +8,27 @@ var _dataManager = _interopRequireDefault(require("./dataManager.js"));
 
 var _domManager = _interopRequireDefault(require("./domManager.js"));
 
+var _graphic = _interopRequireDefault(require("./graphic.js"));
+
 var data = new _dataManager.default();
+var charts = new _graphic.default();
 window.addEventListener('DOMContentLoaded', /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2.default)(function* (event) {
-    var dom = new _domManager.default(yield data.getFullData());
+    var countries = yield data.getFullData();
+    charts.loadChart(countries);
+    var dom = new _domManager.default(countries);
     dom.initTable();
     dom.arrows.forEach((el, index) => {
       el.addEventListener('click', /*#__PURE__*/(0, _asyncToGenerator2.default)(function* () {
         var trie = dom.updateArrow(el, index);
-        var countriesUpdateOrdered = yield data.order(index, trie);
-        dom.updateTable(countriesUpdateOrdered);
+        countries = yield data.order(index, trie);
+        dom.updateTable(countries);
       }));
     });
-    dom.button.addEventListener('click', () => dom.filterTable());
+    dom.button.addEventListener('click', () => {
+      charts.updateCharts(countries, dom.getInputValue());
+      dom.filterTable();
+    });
   });
 
   return function (_x) {

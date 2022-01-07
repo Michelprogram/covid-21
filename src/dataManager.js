@@ -1,6 +1,7 @@
 import Request from "./Request.js"
 import { croissant, decroissant } from "./utils.js"
 
+//Conversion entre ISO2 et ISO3
 const dataCountry = {
     "BD": "BGD",
     "BE": "BEL",
@@ -261,10 +262,12 @@ class dataManager{
         this.countriesISO3 = dataCountry
     }
 
+    //Image du drapeau d'un pay en fonction de son code ISO2
     _getFLagIcon(countryCode){
         return `https://flagcdn.com/${countryCode.toLowerCase()}.svg`
     }
 
+    //Ajoute le PIB aux Pays
     async _pibRequest(countries){
 
         //URL généré auparavant par une fonction
@@ -281,6 +284,7 @@ class dataManager{
         return countries
     }
 
+    //Crée une liste de pays avec les informations nécessaire
     async _countriesData(){
 
         const result = await Request.send("https://api.covid19api.com/summary","GET")
@@ -298,10 +302,12 @@ class dataManager{
         })
     }
 
+    //Récupère toutes les données
     async getFullData(){
         return await this._pibRequest(await this._countriesData())        
     }
 
+    //Trie les données après l'appuie sur une flèche
     async order(index,trie){
 
         let countries = await this.getFullData()

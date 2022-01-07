@@ -69,6 +69,7 @@ class Charts{
         this.charts.draw(dataChars, options);
     }
 
+    //Met à jour le graphique lors du click sur le bouton refresh
     updateCharts(data, length = 0){
 
         data = length != 0 ? data.slice(0,length) : data

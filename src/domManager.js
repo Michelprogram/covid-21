@@ -22,6 +22,7 @@ class domManager{
         return this.input.value
     }
 
+    //En fonction du nombre renséigné dans la searchbar, on cache les éléments du tableau
     filterTable(){
 
         const childrens = this.table.children
@@ -109,6 +110,7 @@ class domManager{
         }
     }
 
+    //Met à jour l'image des flèches de trie
     updateArrow(element,index){
         if (index == 0){
             const flag = element.src.includes('trialpha1')
