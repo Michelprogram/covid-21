@@ -1,0 +1,72 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./assets/covid.png" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="module" src="./src/Request.js"></script>
+    <script type="module" src="./src/utils.js"></script>
+    <script type="module" src="./src/dataManager.js"></script>
+    <script type="module" src="./src/domManager.js"></script>
+    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="./src/graphic.js"></script>
+    <link rel="stylesheet" href="./style/style.css">
+    <title>Covid-21</title>
+</head>
+<body>
+
+    <header>
+        <h1>Covid 21 ! Care about 3x7 virus</h1>
+    </header>
+
+    <div class="app">
+        <div class="container-table">
+            <h2>Statistique du covid par pays</h2>
+            <div class="container-input">            
+                <input id="text-filter" type="text">
+                <button id="button-refresh">Refresh</button>
+                <p>Nombre(s) de pays affiché(s) : <span id="nb-pays">193</span></p>
+            </div>
+            <div class="table">
+                <table>
+                    <tbody class="body-table">
+                        <tr>
+                            <th>Drapeau</th>
+                            <th>
+                                <p>Nom du pays</p>
+                                <img src="./assets/trialpha1.svg" alt="" class="arrow" title="Décroissant">
+                            </th>
+                            <th>
+                                <p>Cas déclarés</p>
+                                <img src="./assets/tri1.svg" alt="" class="arrow" title="Décroissant">
+                            </th>
+                            <th>
+                                <p>Total de décés</p>
+                                <img src="./assets/tri1.svg" alt="" class="arrow" title="Décroissant">
+                            </th>
+                            <th>
+                                <p>Pib ($)</p>
+                                <img src="./assets/tri1.svg" alt="" class="arrow" title="Décroissant">
+                            </th>
+                        </tr>
+                    </tbody>
+    
+                </table>
+            </div>
+        </div>
+
+        <div class="graphic">
+            <div id="myChart"></div>
+        </div>
+
+
+    </div>
+
+    <footer>
+        <p>Web site created by Daryl Caruso & Gauron Dorian | Javascript API | ©</p>
+    </footer>
+    
+</body>
+</html>
+<!-- <script src="tableur.js"></script> -->

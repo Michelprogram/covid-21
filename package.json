@@ -4,15 +4,27 @@
   "description": "",
   "main": "covid.js",
   "scripts": {
-    "test": "jest",
-    "watch": "jest --watch"
+    "allTest": "npm run build && jest",
+    "testRequest": "npm run build && jest __tests__/request.js",
+    "testUtilitaires": "npm run build && jest __tests__/utilitaire.js",
+    "testTableau": "npm run build && jest __tests__/tableau.js",
+    "build": "./node_modules/.bin/babel src --out-dir dist",
+    "dev" : "./node_modules/http-server/bin/http-server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.5",
     "@babel/preset-env": "^7.12.7",
-    "babel": "^6.23.0",
-    "babel-cli": "^6.26.0",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "http-server": "^14.0.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "dependencies": {
+    "chart.js": "^3.7.0"
   }
 }
