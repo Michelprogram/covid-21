@@ -1,5 +1,7 @@
 # Covid-21
 
+⚠️ API doesn't work anymore, the project is not functional ⚠️
+
 # SearchBar
 La search bar permet d'afficher un nombre limiter de pays. Si il n'y a aucune donnée renseigner dans la search bar alors tous les pays sont affichés. De plus, le nombre de pays affiché varie sur le graphique.
 
